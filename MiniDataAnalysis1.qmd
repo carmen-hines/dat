@@ -93,6 +93,10 @@ One way to narrowing down your selection is to *explore* the data sets. Use your
 ### Explore 3 variables of data set 1 ###
 glimpse(genderassessment)
 
+genderassessment |>
+  ggplot(aes(region, gender_leadership)) +
+  geom_boxplot()
+
 ```
 
 
