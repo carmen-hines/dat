@@ -1,7 +1,7 @@
 ---
 title: "Mini Data-Analysis: Deliverable 1"
 format: gfm
-author: "Your name here"
+author: "Carmen Hines"
 ---
 
 Total points available: 74
@@ -32,6 +32,7 @@ Typically, R Packages are loaded in at the very beginning of the analysis. If yo
 library(tidyverse)
 library(diversedata)
 library(moderndive)
+library(readr)
 #--- Add any other packages below this line ---#
 
 
@@ -73,9 +74,9 @@ Out of the 5 data sets listed above, choose **2** that appeal to you based on th
 
 <!-------------------------- Start your work below ---------------------------->
 
-1: Write 1st choice here
+1: genderassessment
 
-2: Write 2nd choice here
+2: womensmarchmadness
 
 
 <!----------------------------------------------------------------------------->
@@ -90,6 +91,7 @@ One way to narrowing down your selection is to *explore* the data sets. Use your
 #### Data Set 1
 ```{r}
 ### Explore 3 variables of data set 1 ###
+glimpse(genderassessment)
 
 ```
 
@@ -102,7 +104,7 @@ Write your findings here.
 #### Data Set 2
 ```{r}
 ### Explore 3 variables of data set 2 ###
-
+glimpse(womensmarchmadness)
 ```
 
 Write your findings here.
