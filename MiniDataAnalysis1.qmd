@@ -94,13 +94,17 @@ One way to narrowing down your selection is to *explore* the data sets. Use your
 glimpse(genderassessment)
 
 genderassessment |>
-  ggplot(aes(region, gender_leadership)) +
-  geom_boxplot()
+  summarize(mean_gl <- mean(gender_leadership), median_gl <- median(gender_leadership))
 
+genderassessment |>
+  summarize(mean_score = mean(score), median_score = median(score), mean_score_percen = mean(percent_score))
+
+genderassessment |>
+  summarize(mean_gm = mean(grievance_mechanisms), median_gm <- median(grievance_mechanisms))
 ```
 
 
-Write your findings here.
+I decided to look at gender_leadership which was scored out of 4, and found that the average score for gender equality was only .4475 with the mean being 0. Then I looked at scores which is the assessment out of 52.3 points to find that the average score was 7.9865 points or 15.2745 % which is no where close to passing. Finally I took a look at grievance_mechanisms to see that the mean is 1.043 and the mean is 1.
 
 
 
@@ -109,9 +113,20 @@ Write your findings here.
 ```{r}
 ### Explore 3 variables of data set 2 ###
 glimpse(womensmarchmadness)
+
+womensmarchmadness |>
+  count(school, sort = TRUE)
+
+womensmarchmadness |>
+  count(conference, sort = TRUE)
+
+womensmarchmadness |>
+  group_by(school) |>
+  summarize(school_total_win = sum(tourney_wins, na.rm = TRUE)) |>
+  arrange(desc(school_total_win))
 ```
 
-Write your findings here.
+The top 5 schools with the most appearances in March Madness are Tennessee, Georgia, Stanford, Texas, and UConn with 37, 33, 32, 31, 30 appearances respectively. At the time, Baylor on has 17 appearances. Next I wanted to look at the strongest conferences which I based on number of appearances. The SEC or Southeaster Conference has 234 with the next being Atlantic Coast with on 184 appearances. The teams with the most amount of wins are Tennessee, UConn, Stanford, Louisiana Tech, and Notre Dame with 125, 117, 86, 65, and 62 wins.
 
 
 
@@ -130,7 +145,7 @@ It's time to choose only one data set. State the data set that you've chosen, an
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+I have chose the womensmarchmadness data set because I find it to be more interesting and has a lot more information that I can look at. It is also more personal because of Baylor basketball.
 
 <!----------------------------------------------------------------------------->
 
@@ -145,7 +160,8 @@ Write your research questions **as questions**, and be specific. You can change 
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+(Primary) Do teams that play their first game at home win more than teams that don't?
+(Secondary) Does this relationship differ seed? 
 
 
 <!----------------------------------------------------------------------------->
