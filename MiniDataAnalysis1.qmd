@@ -160,7 +160,7 @@ Write your research questions **as questions**, and be specific. You can change 
 
 <!-------------------------- Start your work below ---------------------------->
 
-(Primary) Do teams that play their first game at home win more than teams that don't?
+(Primary) Do teams that play their first game at home win more tournament games than teams that don't?
 (Secondary) Does this relationship differ seed? 
 
 
@@ -188,7 +188,24 @@ Your task is to create a table that calculates the proportion of missing values 
 
 ```{r}
 ### Explore missingness here ###
+colSums(is.na(womensmarchmadness))
 
+missing_table <- tibble(
+  variable = c("conf_wins", "conf_losses", "conf_wins_pct",
+               "conf_rank", "division"),
+  n_missing = c(
+    sum(is.na(womensmarchmadness$conf_wins)),
+    sum(is.na(womensmarchmadness$conf_losses)),
+    sum(is.na(womensmarchmadness$conf_wins_pct)),
+    sum(is.na(womensmarchmadness$conf_rank)),
+    sum(is.na(womensmarchmadness$division))
+  ))|>
+    mutate(
+      prop_missing = n_missing / nrow(womensmarchmadness)
+    )
+
+
+missing_table
 ```
 
 
@@ -212,7 +229,7 @@ If missingness is not an issue, describe why.
 
 <!-------------------------- Start your work below ---------------------------->
 
-
+Missingness is not an issue because my primary and secondary questions do not consider and of the variables missing and the only variable that is mission more that 20% is division.
 
 
 <!----------------------------------------------------------------------------->
@@ -238,10 +255,13 @@ Show the first 6 rows of the tidied data.
 
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
+women_tidy <- womensmarchmadness |>
+  select(year, school, tourney_wins, first_game_at_home, seed) |>
+  mutate(first_at_home = if_else(first_game_at_home == "Y", "Home", "Not home")
+) |> select(year, school, tourney_wins, first_at_home, seed)
 
 
-
-
+head(women_tidy)
 ```
 
 <!----------------------------------------------------------------------------->
@@ -256,9 +276,20 @@ Show the outputted table.
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 
+mmm_women <- women_tidy |>
+  pivot_longer(
+    cols = c(year, seed, tourney_wins),
+    names_to = "variable",
+    values_to = "value"
+  ) |>
+  group_by(variable) |>
+  summarize(
+    mean = mean(value),
+    min = min(value),
+    max = max(value)
+  )
 
-
-
+mmm_women
 ```
 
 <!----------------------------------------------------------------------------->
